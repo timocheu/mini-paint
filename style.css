@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+}
+
+.container {
+    margin: 5% auto;
+    height: 500px;
+    width: 500px;
+    display: grid;
+    grid-template: repeat(16, 1fr) / repeat(16, 1fr);
+    background-color: white;
+    border: 2px solid black;
+}
