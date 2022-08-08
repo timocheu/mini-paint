@@ -8,8 +8,6 @@ btn.addEventListener('click', (e) => {
 function createTile (n) {
     if (n > 100) {
         return alert("max pixel is 100");
-    } else if (typeof n === typeof '') {
-        return alert('not a number');
     } else if (n == null) {
         return;
     }
