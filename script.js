@@ -5,15 +5,18 @@ btn.addEventListener('click', (e) => {
     createTile(pixel);
 })
 
-function createTile (n) {
+const div = document.createElement('div');
+const container = document.querySelector('.container');
+div.classList.add('tile')
+
+
+function createTile(n) {
     if (n > 100) {
         return alert("max pixel is 100");
     } else if (n == null) {
         return;
     }
-    const div = document.createElement('div');
-    const container = document.querySelector('.container');
-    div.classList.add('tile')
+
     container.setAttribute('style', `grid-template:repeat(${n}, 1fr)/ repeat(${n}, 1fr);`)
 
     for (let i = 0; i < (n * n); i++) {
@@ -24,3 +27,9 @@ function createTile (n) {
         e.target.style.backgroundColor = 'black';
     }))
 }
+
+const reset = document.getElementById('reset');
+reset.addEventListener('click', () => {
+    const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => tile.style.backgroundColor = 'white');
+})
