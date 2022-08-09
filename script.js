@@ -1,9 +1,22 @@
-const btn = document.querySelector('.btn');
-const reset = document.getElementById('reset');
+const btn = document.querySelector('[data-btn="set"]');
+const reset = document.querySelector('[data-btn="reset"]');
 const div = document.createElement('div');
 const container = document.querySelector('.container');
 
 div.classList.add('tile')
+
+btn.addEventListener('click', (e) => {
+    console.log(e);
+    let pixel = prompt("set pixel size:");
+    createTile(pixel);
+})
+
+reset.addEventListener('click', () => {
+    const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => tile.style.backgroundColor = 'white');
+})
+
+
 
 function createTile(n) {
     if (n > 100) {
@@ -23,13 +36,4 @@ function createTile(n) {
     }))
 }
 
-reset.addEventListener('click', () => {
-    const tiles = document.querySelectorAll('.tile');
-    tiles.forEach(tile => tile.style.backgroundColor = 'white');
-})
 
-btn.addEventListener('click', (e) => {
-    console.log(e);
-    let pixel = prompt("set pixel size:");
-    createTile(pixel);
-})
