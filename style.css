@@ -1,57 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
+
 * {
+    font-family: 'Inter', sans-serif;
     margin: 0;
     box-sizing: border-box;
 }
 
-body {
-    background-color: #AAA;
+.main {
+    background-color: #181A1B;
+    color: #E8E6E3;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: 100vh;
 }
 
-.menu {
+ul {
     margin: 0 10%;
-    height: 500px;
-    width: 250px;
-    background-color: hsl(0, 0%, 100%);
+    padding: 15px;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    padding: 25px;
-    border-radius: 15px;
-    border: 2px solid black;
 }
 
-.btn {
-    background-color:#00bfff;
-	border-radius:16px;
-	border:1px solid #29668f;
-	display:inline-block;
-	cursor:pointer;
-	color: black;
-	font-family:Arial;
-	font-size:17px;
-	padding:12px 31px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #3e698a;
-    }
- .btn:hover {
-    background-color:#408c99;
-    }
- .btn:active {
-    position:relative;
-	top:1px;
-    }
+ul li {
+    list-style: none;
+}
+
+button {
+    background-color: inherit;
+    font-size: 1.5em;
+    padding: 5px 10px;
+    color: inherit;
+    border: none;
+    cursor:pointer;
+    transition: .2s ease-in;
+}
+
+button:hover {
+    color: #3391FF;
+}
+
+button:active {
+    position: relative;
+    top: 1px;
+}
+
+.btn-pink {
+    background-color: #FF1AA1;
+    border-radius: 5px;
+}
+
+.btn-pink:hover {
+    background-color: #ff1aa0bf;
+    color: #AAA;
+}
+
+.btn-pink:active {
+    position: relative;
+    top: 1px;
+}
 
 
 .container {
-    margin: 5% auto;
+    margin: 10px auto;
     height: 500px;
     width: 500px;
     display: grid;
     background-color: white;
-    border: 2px solid black;
+    box-shadow: hsla(240, 5%, 41%, 0.803) 0px 7px 29px 0px;
 }
