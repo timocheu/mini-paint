@@ -3,7 +3,7 @@
 * {
     font-family: 'Inter', sans-serif;
     margin: 0;
-    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .main {
@@ -15,8 +15,11 @@
     height: 100vh;
 }
 
-ul {
+.menu {
     margin: 0 10%;
+}
+
+ul {
     padding: 15px;
     display: flex;
     flex-direction: column;
