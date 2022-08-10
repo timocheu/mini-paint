@@ -7,10 +7,11 @@
     <title>Etch-a-Sketch</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body ondragstart="return false;" ondrop="return false;">
     <div class="main">
         <ul>
             <li><button data-btn="set">Set Pixel</button></li>
+            <li><button data-btn="rainbow">Rainbow</button></li>
             <li><button data-btn="reset" class="btn-pink">Reset</button></li>
         </ul>
         <div class="container"></div>
