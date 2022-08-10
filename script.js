@@ -1,9 +1,11 @@
 const btn = document.querySelector('[data-btn="set"]');
 const reset = document.querySelector('[data-btn="reset"]');
-const rainbow = document.querySelector('[data-btn="rainbow"');
+const rainbowBtn = document.querySelector('[data-btn="rainbow"');
 const div = document.createElement('div');
 const container = document.querySelector('.container');
+
 let writing;
+let rainbow = false;
 div.classList.add('tile')
 
 btn.addEventListener('click', (e) => {
@@ -35,17 +37,21 @@ container.addEventListener('mousedown', () => {
     writing = true;
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => tile.addEventListener('mouseover', (e) => {
-        if (writing) e.target.style.backgroundColor = 'black';
+        if (writing && rainbow) {
+            e.target.style.backgroundColor = `hsl(${random(360)}, ${random(100)}%, ${random(100)}%)`;
+        } else if (writing) {
+            e.target.style.backgroundColor = 'black';
+        }
     }));
 })
 
 
-rainbow.addEventListener('click', () => {
-    writing = true;
-    const tiles = document.querySelectorAll('.tile');
-    tiles.forEach(tile => tile.addEventListener('mouseover', (e) => {
-        if (writing) e.target.style.backgroundColor = `hsl(${random(360)}, ${random(100)}%, ${random(100)}%)`;
-    }))
+rainbowBtn.addEventListener('click', () => {
+    if (!rainbow) {
+        rainbow = true;
+    } else if (rainbow) {
+        rainbow = false;
+    }
 })
 
 container.addEventListener('mouseup', (e) => {
