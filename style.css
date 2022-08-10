@@ -66,8 +66,8 @@ button:active {
 
 .container {
     margin: 10px auto;
-    height: 500px;
-    width: 500px;
+    height: 75vh;
+    width: 75vh;
     display: grid;
     background-color: white;
     grid-template: repeat(16, 1fr) / repeat(16, 1fr);
