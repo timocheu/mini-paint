@@ -50,8 +50,10 @@ container.addEventListener('mousedown', () => {
 rainbowBtn.addEventListener('click', () => {
     if (!rainbow) {
         rainbow = true;
+        rainbowBtn.classList.add('toggle')
     } else if (rainbow) {
         rainbow = false;
+        rainbowBtn.classList.remove('toggle')
     }
 })
 
