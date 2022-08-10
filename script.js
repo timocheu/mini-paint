@@ -3,7 +3,7 @@ const reset = document.querySelector('[data-btn="reset"]');
 const rainbow = document.querySelector('[data-btn="rainbow"');
 const div = document.createElement('div');
 const container = document.querySelector('.container');
-
+let writing;
 div.classList.add('tile')
 
 btn.addEventListener('click', (e) => {
@@ -13,11 +13,6 @@ btn.addEventListener('click', (e) => {
 
 reset.addEventListener('click', () => {
     const tiles = document.querySelectorAll('.tile');
-    tiles.forEach(tile => tile.style.backgroundColor = 'white');
-    tiles.forEach(tile => tile.addEventListener('mouseover', (e) => {
-        e.target.style.backgroundColor = 'black';
-    }));
-
 })
 
 function createTile(n) {
@@ -30,23 +25,31 @@ function createTile(n) {
     for (let i = 0; i < (n * n); i++) {
         container.appendChild(div.cloneNode(true))
     }
-    const tiles = document.querySelectorAll('.tile');
-    tiles.forEach(tile => tile.addEventListener('mouseover', (e) => {
-        e.target.style.backgroundColor = 'black';
-    }));
-
 }
 
-function random (max) {
+function random(max) {
     return Math.floor(Math.random() * max);
 }
 
-
-rainbow.addEventListener('click', () => {
+container.addEventListener('mousedown', () => {
+    writing = true;
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => tile.addEventListener('mouseover', (e) => {
-        e.target.style.backgroundColor = `hsl(${random(360)}, ${random(100)}%, ${random(100)}%)`;
+        if (writing) e.target.style.backgroundColor = 'black';
+    }));
+})
+
+
+rainbow.addEventListener('click', () => {
+    writing = true;
+    const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => tile.addEventListener('mouseover', (e) => {
+        if (writing) e.target.style.backgroundColor = `hsl(${random(360)}, ${random(100)}%, ${random(100)}%)`;
     }))
+})
+
+container.addEventListener('mouseup', (e) => {
+    writing = false;
 })
 
 
