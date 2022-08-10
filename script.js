@@ -4,11 +4,19 @@ const rainbowBtn = document.querySelector('[data-btn="rainbow"');
 const eraserBtn = document.querySelector('[data-btn="erase"');
 const div = document.createElement('div');
 const container = document.querySelector('.container');
+div.classList.add('tile')
 
 let writing;
 let rainbow = false;
 let erase = false;
-div.classList.add('tile')
+let defaultGrid = true;
+
+if (defaultGrid) {
+    for (i = 0; i < (16 * 16); i++) {
+        container.appendChild(div.cloneNode(true))
+    }
+}
+
 
 btn.addEventListener('click', (e) => {
     let pixel = prompt("set pixel size:");
