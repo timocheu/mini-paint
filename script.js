@@ -15,6 +15,7 @@ btn.addEventListener('click', (e) => {
 
 reset.addEventListener('click', () => {
     const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => tile.style.backgroundColor = 'white')
 })
 
 function createTile(n) {
@@ -38,7 +39,7 @@ container.addEventListener('mousedown', () => {
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => tile.addEventListener('mouseover', (e) => {
         if (writing && rainbow) {
-            e.target.style.backgroundColor = `hsl(${random(360)}, ${random(100)}%, ${random(100)}%)`;
+            e.target.style.backgroundColor = `hsl(${random(360)}, 100%, ${random(100)}%)`;
         } else if (writing) {
             e.target.style.backgroundColor = 'black';
         }
