@@ -51,12 +51,13 @@ button:active {
 }
 
 .btn-pink {
-    background-color: #FF1AA1;
+    background-color: #0052CC;
+    padding: 5px 10px;
     border-radius: 5px;
 }
 
 .btn-pink:hover {
-    background-color: #ff1aa0bf;
+    background-color: #0052cc90;
     color: #AAA;
 }
 
