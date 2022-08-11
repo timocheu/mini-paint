@@ -1,7 +1,8 @@
 const btn = document.querySelector('[data-btn="set"]');
 const reset = document.querySelector('[data-btn="reset"]');
-const rainbowBtn = document.querySelector('[data-btn="rainbow"');
-const eraserBtn = document.querySelector('[data-btn="erase"');
+const rainbowBtn = document.querySelector('[data-btn="rainbow"]');
+const eraserBtn = document.querySelector('[data-btn="erase"]');
+const gridBtn = document.querySelector('[data-btn="grid"]')
 const div = document.createElement('div');
 const container = document.querySelector('.container');
 div.classList.add('tile')
@@ -10,6 +11,7 @@ let writing;
 let rainbow = false;
 let erase = false;
 let defaultGrid = true;
+let grid = false;
 
 if (defaultGrid) {
     for (i = 0; i < (16 * 16); i++) {
@@ -35,6 +37,8 @@ function createTile(n) {
         return;
     }
     container.setAttribute('style', `grid-template:repeat(${n}, 1fr)/ repeat(${n}, 1fr);`)
+    container.innerHTML = "";
+    if (grid) div.classList.add('grid')
     for (let i = 0; i < (n * n); i++) {
         container.appendChild(div.cloneNode(true))
     }
@@ -86,11 +90,20 @@ eraserBtn.addEventListener('click', () => {
         eraserBtn.classList.remove('toggle')
     }
 })
-
 container.addEventListener('mouseup', (e) => {
     writing = false;
 })
 
-
-
+gridBtn.addEventListener('click', function (e) {
+    const tiles = document.querySelectorAll('.tile');
+    if (!grid) {
+        grid = true;
+        tiles.forEach(tile => tile.classList.add('grid'))
+        gridBtn.classList.add('toggle')
+    } else if (grid) {
+        grid = false;
+        tiles.forEach(tile => tile.classList.remove('grid'))
+        gridBtn.classList.remove('toggle')
+    }
+})
 

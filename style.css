@@ -82,3 +82,7 @@ button:active {
     color: #181A1B;
     transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
 }
+
+.grid {
+    border: .5px solid gray;
+}
