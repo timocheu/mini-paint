@@ -41,8 +41,15 @@ function random(max) {
     return Math.floor(Math.random() * max);
 }
 
-container.addEventListener('mousedown', () => {
+container.addEventListener('mousedown', (e) => {
     writing = true;
+    if (writing && rainbow) {
+        e.target.style.backgroundColor = `hsl(${random(360)}, 100%, ${random(100)}%)`;
+    } else if (writing && erase) {
+        e.target.style.backgroundColor = 'white';
+    } else if (writing) {
+        e.target.style.backgroundColor = 'black';
+    }
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => tile.addEventListener('mouseover', (e) => {
         if (writing && rainbow) {
