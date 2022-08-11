@@ -7,14 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-a-Sketch</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/pen-svgrepo-com.svg">
 </head>
-
 <body ondragstart="return false;" ondrop="return false;">
     <div class="main">
         <div class="menu">
             <h1>Etch-a-Sketch Ⓒ timche</h1>
             <ul>
-                <li><div class="value">16 x 16</div></li>
+                <li>
+                    <div class="value">16 x 16</div>
+                </li>
                 <li><input type="range" min="1" max="60" step="1" value="16"></li>
                 <li><button data-btn="rainbow">Rainbow</button></li>
                 <li><button data-btn="erase">Eraser</button></li>
@@ -26,4 +28,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
