@@ -50,18 +50,19 @@ button:active {
     top: 1px;
 }
 
-.btn-pink {
+.btn-blue {
     background-color: #0052CC;
     padding: 5px 10px;
     border-radius: 5px;
+    box-shadow: rgba(180, 180, 181, 0.25) 0px 30px 60px -12px inset, rgba(201, 200, 200, 0.3) 0px 18px 36px -18px inset;
 }
 
-.btn-pink:hover {
+.btn-blue:hover {
     background-color: #0052cc90;
     color: #AAA;
 }
 
-.btn-pink:active {
+.btn-blue:active {
     position: relative;
     top: 1px;
 }
