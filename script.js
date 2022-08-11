@@ -50,6 +50,7 @@ container.addEventListener('mousedown', (e) => {
     } else if (writing) {
         e.target.style.backgroundColor = 'black';
     }
+    // hover
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => tile.addEventListener('mouseover', (e) => {
         if (writing && rainbow) {
