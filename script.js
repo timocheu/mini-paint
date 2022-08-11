@@ -6,6 +6,7 @@ const gridBtn = document.querySelector('[data-btn="grid"]')
 const div = document.createElement('div');
 const container = document.querySelector('.container');
 const range = document.querySelector('input[type="range"]');
+const color = document.querySelector('input[type="color"]');
 const value = document.querySelector('.value');
 div.classList.add('tile')
 
@@ -14,6 +15,7 @@ let rainbow = false;
 let erase = false;  
 let defaultGrid = true;
 let grid = false;
+let newColor;
 
 if (defaultGrid) {
     for (i = 0; i < (16 * 16); i++) {
@@ -42,13 +44,14 @@ function random(max) {
 }
 
 container.addEventListener('mousedown', (e) => {
+    let newColor = color.value;
     writing = true;
     if (writing && rainbow) {
         e.target.style.backgroundColor = `hsl(${random(360)}, 100%, ${random(100)}%)`;
     } else if (writing && erase) {
         e.target.style.backgroundColor = 'white';
     } else if (writing) {
-        e.target.style.backgroundColor = 'black';
+        e.target.style.backgroundColor = `${newColor}`;
     }
     // hover
     const tiles = document.querySelectorAll('.tile');
@@ -58,7 +61,7 @@ container.addEventListener('mousedown', (e) => {
         } else if (writing && erase) {
             e.target.style.backgroundColor = 'white';
         } else if (writing) {
-            e.target.style.backgroundColor = 'black';
+            e.target.style.backgroundColor = `${newColor}`;
         }
     }));
 })
