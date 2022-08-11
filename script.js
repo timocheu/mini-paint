@@ -5,11 +5,13 @@ const eraserBtn = document.querySelector('[data-btn="erase"]');
 const gridBtn = document.querySelector('[data-btn="grid"]')
 const div = document.createElement('div');
 const container = document.querySelector('.container');
+const range = document.querySelector('input[type="range"]');
+const value = document.querySelector('.value');
 div.classList.add('tile')
 
 let writing;
 let rainbow = false;
-let erase = false;
+let erase = false;  
 let defaultGrid = true;
 let grid = false;
 
@@ -19,27 +21,18 @@ if (defaultGrid) {
     }
 }
 
-
-btn.addEventListener('click', (e) => {
-    let pixel = prompt("set pixel size:");
-    createTile(pixel);
-})
-
 reset.addEventListener('click', () => {
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => tile.style.backgroundColor = 'white')
 })
 
-function createTile(n) {
-    if (n > 100) {
-        return alert("max pixel is 100");
-    } else if (n == null) {
-        return;
-    }
-    container.setAttribute('style', `grid-template:repeat(${n}, 1fr)/ repeat(${n}, 1fr);`)
+function createTile() {
+    let newValue = range.value;
+    value.textContent = `${newValue} x ${newValue}`;
+    container.setAttribute('style', `grid-template:repeat(${newValue}, 1fr)/ repeat(${newValue}, 1fr);`)
     container.innerHTML = "";
     if (grid) div.classList.add('grid')
-    for (let i = 0; i < (n * n); i++) {
+    for (let i = 0; i < (newValue * newValue); i++) {
         container.appendChild(div.cloneNode(true))
     }
 }
@@ -107,3 +100,4 @@ gridBtn.addEventListener('click', function (e) {
     }
 })
 
+range.addEventListener('input', createTile)
