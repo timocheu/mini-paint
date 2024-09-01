@@ -1,13 +1,18 @@
-const btn = document.querySelector('[data-btn="set"]');
-const reset = document.querySelector('[data-btn="reset"]');
-const rainbowBtn = document.querySelector('[data-btn="rainbow"]');
-const eraserBtn = document.querySelector('[data-btn="erase"]');
-const gridBtn = document.querySelector('[data-btn="grid"]')
-const div = document.createElement('div');
-const container = document.querySelector('.container');
+// Buttons
+const btn_Reset = document.querySelector('[btn_data="reset"]');
+const btn_Rainbow = document.querySelector('[btn_data="rainbow"]');
+const btn_Erase = document.querySelector('[btn_data="erase"]');
+const btn_Grid = document.querySelector('[btn_data="grid"]')
+
+// Config
 const range = document.querySelector('input[type="range"]');
 const color = document.querySelector('input[type="color"]');
-const value = document.querySelector('.value');
+// Display config
+const size = document.querySelector('.size');
+
+const container = document.querySelector('.container');
+
+const div = document.createElement('div');
 div.classList.add('tile')
 
 let writing;
@@ -23,17 +28,27 @@ if (defaultGrid) {
     }
 }
 
-reset.addEventListener('click', () => {
+// Reset the grid
+btn_Reset.addEventListener('click', () => {
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => tile.style.backgroundColor = 'white')
 })
 
+// Listen for changes then adjust grid
+range.addEventListener('input', createTile)
 function createTile() {
     let newValue = range.value;
-    value.textContent = `${newValue} x ${newValue}`;
+    size.textContent = `${newValue} x ${newValue}`;
+
     container.setAttribute('style', `grid-template:repeat(${newValue}, 1fr)/ repeat(${newValue}, 1fr);`)
     container.innerHTML = "";
+
     if (grid) div.classList.add('grid')
+
+    // TODO:
+    // Implement algorithm to only add what is 
+    // needed for the size of grid
+    // else delete what is needed
     for (let i = 0; i < (newValue * newValue); i++) {
         container.appendChild(div.cloneNode(true))
     }
@@ -43,6 +58,8 @@ function random(max) {
     return Math.floor(Math.random() * max);
 }
 
+// TODO:
+// Fix rainbow(random) to precise rainbow
 container.addEventListener('mousedown', (e) => {
     let newColor = color.value;
     writing = true;
@@ -66,49 +83,50 @@ container.addEventListener('mousedown', (e) => {
     }));
 })
 
-
-rainbowBtn.addEventListener('click', () => {
+// TODO:
+// Refactor this
+btn_Rainbow.addEventListener('click', () => {
     if (!rainbow) {
         rainbow = true;
-        rainbowBtn.classList.add('toggle')
+        btn_Rainbow.classList.add('toggle')
         if (erase) {
             erase = false;
-            eraserBtn.classList.remove('toggle')
+            btn_Erase.classList.remove('toggle')
         }
     } else if (rainbow) {
         rainbow = false;
-        rainbowBtn.classList.remove('toggle')
+        btn_Rainbow.classList.remove('toggle')
     }
 })
 
-eraserBtn.addEventListener('click', () => {
+// TODO:
+// Refactor
+btn_Erase.addEventListener('click', () => {
     if (!erase) {
         erase = true;
-        eraserBtn.classList.add('toggle')
+        btn_Erase.classList.add('toggle')
         if (rainbow) {
             rainbow = false;
-            rainbowBtn.classList.remove('toggle')
+            btn_Rainbow.classList.remove('toggle')
         }
     } else if (erase) {
         erase = false;
-        eraserBtn.classList.remove('toggle')
+        btn_Erase.classList.remove('toggle')
     }
 })
-container.addEventListener('mouseup', (e) => {
+container.addEventListener('mouseup', () => {
     writing = false;
 })
 
-gridBtn.addEventListener('click', function (e) {
+btn_Grid.addEventListener('click', function (e) {
     const tiles = document.querySelectorAll('.tile');
     if (!grid) {
         grid = true;
         tiles.forEach(tile => tile.classList.add('grid'))
-        gridBtn.classList.add('toggle')
+        btn_Grid.classList.add('toggle')
     } else if (grid) {
         grid = false;
         tiles.forEach(tile => tile.classList.remove('grid'))
-        gridBtn.classList.remove('toggle')
+        btn_Grid.classList.remove('toggle')
     }
 })
-
-range.addEventListener('input', createTile)
