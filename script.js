@@ -39,18 +39,21 @@ range.addEventListener('input', createTile)
 function createTile() {
     let newValue = range.value;
     size.textContent = `${newValue} x ${newValue}`;
-
     container.setAttribute('style', `grid-template:repeat(${newValue}, 1fr)/ repeat(${newValue}, 1fr);`)
-    container.innerHTML = "";
 
-    if (grid) div.classList.add('grid')
+    // Add grid outline
+    if (grid == true) div.classList.add('grid');
 
-    // TODO:
-    // Implement algorithm to only add what is 
-    // needed for the size of grid
-    // else delete what is needed
-    for (let i = 0; i < (newValue * newValue); i++) {
-        container.appendChild(div.cloneNode(true))
+    // difference between the square of newValue 
+    // and total amount of current nodes of container
+    let resizeGrid = (newValue ** 2) - container.children.length;
+    for (let i = 0; i < Math.abs(resizeGrid); i++)
+    {
+        if (resizePixel > 0) {
+            container.append(div.cloneNode())
+        } else {
+            container.removeChild(container.lastElementChild)
+        }
     }
 }
 
@@ -118,7 +121,7 @@ container.addEventListener('mouseup', () => {
     writing = false;
 })
 
-btn_Grid.addEventListener('click', function (e) {
+btn_Grid.addEventListener('click', function () {
     const tiles = document.querySelectorAll('.tile');
     if (!grid) {
         grid = true;
