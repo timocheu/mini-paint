@@ -49,7 +49,7 @@ function createTile() {
     let resizeGrid = (newValue ** 2) - container.children.length;
     for (let i = 0; i < Math.abs(resizeGrid); i++)
     {
-        if (resizePixel > 0) {
+        if (resizeGrid > 0) {
             container.append(div.cloneNode())
         } else {
             container.removeChild(container.lastElementChild)
@@ -86,37 +86,64 @@ container.addEventListener('mousedown', (e) => {
     }));
 })
 
-// TODO:
-// Refactor this
-btn_Rainbow.addEventListener('click', () => {
-    if (!rainbow) {
-        rainbow = true;
-        btn_Rainbow.classList.add('toggle')
-        if (erase) {
-            erase = false;
-            btn_Erase.classList.remove('toggle')
+btn_Rainbow.addEventListener('click', enableEffect)
+btn_Erase.addEventListener('click', enableEffect)
+
+function enableEffect(event) {
+    let effect = event.currentTarget.attributes.effect.value;
+    if (effect == "erase") {
+        if (btn_Erase.classList.contains("toggle")) {
+            btn_Erase.classList.remove("toggle")
+            return;
         }
-    } else if (rainbow) {
-        rainbow = false;
-        btn_Rainbow.classList.remove('toggle')
+
+        btn_Erase.classList.add("toggle")
+        btn_Rainbow.classList.remove("toggle")
     }
-})
+
+    if (effect == "rainbow") {
+        console.log("Hello");
+        if (btn_Rainbow.classList.contains("toggle")) {
+            btn_Erase.classList.remove("toggle")
+            return;
+        }
+
+        btn_Rainbow.classList.add("toggle")
+        btn_Erase.classList.remove("toggle")
+    }
+}
 
 // TODO:
-// Refactor
-btn_Erase.addEventListener('click', () => {
-    if (!erase) {
-        erase = true;
-        btn_Erase.classList.add('toggle')
-        if (rainbow) {
-            rainbow = false;
-            btn_Rainbow.classList.remove('toggle')
-        }
-    } else if (erase) {
-        erase = false;
-        btn_Erase.classList.remove('toggle')
-    }
-})
+// Refactor this
+// btn_Rainbow.addEventListener('click', () => {
+//     if (!rainbow) {
+//         rainbow = true;
+//         btn_Rainbow.classList.add('toggle')
+//         if (erase) {
+//             erase = false;
+//             btn_Erase.classList.remove('toggle')
+//         }
+//     } else if (rainbow) {
+//         rainbow = false;
+//         btn_Rainbow.classList.remove('toggle')
+//     }
+// })
+
+// // TODO:
+// // Refactor
+// btn_Erase.addEventListener('click', () => {
+//     if (!erase) {
+//         erase = true;
+//         btn_Erase.classList.add('toggle')
+//         if (rainbow) {
+//             rainbow = false;
+//             btn_Rainbow.classList.remove('toggle')
+//         }
+//     } else if (erase) {
+//         erase = false;
+//         btn_Erase.classList.remove('toggle')
+//     }
+// })
 container.addEventListener('mouseup', () => {
     writing = false;
 })
