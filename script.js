@@ -3,56 +3,54 @@ const btn_Reset = document.querySelector('[btn_data="reset"]');
 const btn_Rainbow = document.querySelector('[btn_data="rainbow"]');
 const btn_Erase = document.querySelector('[btn_data="erase"]');
 const btn_Grid = document.querySelector('[btn_data="grid"]')
-
 // Config
 const range = document.querySelector('input[type="range"]');
 const color = document.querySelector('input[type="color"]');
 // Display config
 const size = document.querySelector('.size');
 
-const container = document.querySelector('.container');
+const canvas = document.querySelector('.canvas');
 
-const div = document.createElement('div');
-div.classList.add('tile')
+const pixel = document.createElement('div');
+
+pixel.classList.add('tile')
 
 let writing;
 let rainbow = false;
 let erase = false;  
-let defaultGrid = true;
 let grid = false;
 let newColor;
 
-if (defaultGrid) {
-    for (i = 0; i < (16 * 16); i++) {
-        container.appendChild(div.cloneNode(true))
-    }
-}
-
-// Reset the grid
+btn_Rainbow.addEventListener('click', enableEffect)
+btn_Erase.addEventListener('click', enableEffect)
 btn_Reset.addEventListener('click', () => {
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => tile.style.backgroundColor = 'white')
 })
+
+for (i = 0; i < (16 * 16); i++) {
+    canvas.appendChild(pixel.cloneNode(true))
+}
 
 // Listen for changes then adjust grid
 range.addEventListener('input', createTile)
 function createTile() {
     let newValue = range.value;
     size.textContent = `${newValue} x ${newValue}`;
-    container.setAttribute('style', `grid-template:repeat(${newValue}, 1fr)/ repeat(${newValue}, 1fr);`)
+    canvas.setAttribute('style', `grid-template:repeat(${newValue}, 1fr)/ repeat(${newValue}, 1fr);`)
 
     // Add grid outline
-    if (grid == true) div.classList.add('grid');
+    if (grid == true) pixel.classList.add('grid');
 
     // difference between the square of newValue 
-    // and total amount of current nodes of container
-    let resizeGrid = (newValue ** 2) - container.children.length;
+    // and total amount of current nodes of canvas
+    let resizeGrid = (newValue ** 2) - canvas.children.length;
     for (let i = 0; i < Math.abs(resizeGrid); i++)
     {
         if (resizeGrid > 0) {
-            container.append(div.cloneNode())
+            canvas.append(pixel.cloneNode())
         } else {
-            container.removeChild(container.lastElementChild)
+            canvas.removeChild(canvas.lastElementChild)
         }
     }
 }
@@ -63,7 +61,8 @@ function random(max) {
 
 // TODO:
 // Fix rainbow(random) to precise rainbow
-container.addEventListener('mousedown', (e) => {
+// Consider Refactor 
+canvas.addEventListener('mousedown', (e) => {
     let newColor = color.value;
     writing = true;
     if (writing && rainbow) {
@@ -86,8 +85,6 @@ container.addEventListener('mousedown', (e) => {
     }));
 })
 
-btn_Rainbow.addEventListener('click', enableEffect)
-btn_Erase.addEventListener('click', enableEffect)
 
 function enableEffect(event) {
     let effect = event.currentTarget.attributes.effect.value;
@@ -102,7 +99,6 @@ function enableEffect(event) {
     }
 
     if (effect == "rainbow") {
-        console.log("Hello");
         if (btn_Rainbow.classList.contains("toggle")) {
             btn_Erase.classList.remove("toggle")
             return;
@@ -113,42 +109,11 @@ function enableEffect(event) {
     }
 }
 
-// TODO:
-// Refactor this
-// btn_Rainbow.addEventListener('click', () => {
-//     if (!rainbow) {
-//         rainbow = true;
-//         btn_Rainbow.classList.add('toggle')
-//         if (erase) {
-//             erase = false;
-//             btn_Erase.classList.remove('toggle')
-//         }
-//     } else if (rainbow) {
-//         rainbow = false;
-//         btn_Rainbow.classList.remove('toggle')
-//     }
-// })
-
-// // TODO:
-// // Refactor
-// btn_Erase.addEventListener('click', () => {
-//     if (!erase) {
-//         erase = true;
-//         btn_Erase.classList.add('toggle')
-//         if (rainbow) {
-//             rainbow = false;
-//             btn_Rainbow.classList.remove('toggle')
-//         }
-//     } else if (erase) {
-//         erase = false;
-//         btn_Erase.classList.remove('toggle')
-//     }
-// })
-container.addEventListener('mouseup', () => {
+canvas.addEventListener('mouseup', () => {
     writing = false;
 })
 
-btn_Grid.addEventListener('click', function () {
+btn_Grid.addEventListener('click', () => {
     const tiles = document.querySelectorAll('.tile');
     if (!grid) {
         grid = true;
