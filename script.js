@@ -1,36 +1,32 @@
+// Tools
+const canvas = document.querySelector('.canvas');
+const pixel = document.createElement('div');
+pixel.classList.add('tile');
+
 // Buttons
 const btn_Reset = document.querySelector('[btn_data="reset"]');
 const btn_Rainbow = document.querySelector('[btn_data="rainbow"]');
 const btn_Erase = document.querySelector('[btn_data="erase"]');
 const btn_Grid = document.querySelector('[btn_data="grid"]')
+
 // Config
 const range = document.querySelector('input[type="range"]');
 const color = document.querySelector('input[type="color"]');
+
 // Display config
 const size = document.querySelector('.size');
 
-const canvas = document.querySelector('.canvas');
-
-const pixel = document.createElement('div');
-
-pixel.classList.add('tile')
-
-let writing;
-let rainbow = false;
-let erase = false;  
 let grid = false;
-let newColor;
+
+// Initialize pixels on canvas
+createTile();
 
 btn_Rainbow.addEventListener('click', enableEffect)
 btn_Erase.addEventListener('click', enableEffect)
 btn_Reset.addEventListener('click', () => {
     const tiles = document.querySelectorAll('.tile');
-    tiles.forEach(tile => tile.style.backgroundColor = 'white')
+    tiles.forEach(tile => tile.style.backgroundColor = "");
 })
-
-for (i = 0; i < (16 * 16); i++) {
-    canvas.appendChild(pixel.cloneNode(true))
-}
 
 // Listen for changes then adjust grid
 range.addEventListener('input', createTile)
@@ -55,36 +51,18 @@ function createTile() {
     }
 }
 
-function random(max) {
-    return Math.floor(Math.random() * max);
-}
-
-// TODO:
-// Fix rainbow(random) to precise rainbow
-// Consider Refactor 
-canvas.addEventListener('mousedown', (e) => {
-    let newColor = color.value;
-    writing = true;
-    if (writing && rainbow) {
-        e.target.style.backgroundColor = `hsl(${random(360)}, 100%, ${random(100)}%)`;
-    } else if (writing && erase) {
-        e.target.style.backgroundColor = 'white';
-    } else if (writing) {
-        e.target.style.backgroundColor = `${newColor}`;
-    }
-    // hover
-    const tiles = document.querySelectorAll('.tile');
-    tiles.forEach(tile => tile.addEventListener('mouseover', (e) => {
-        if (writing && rainbow) {
-            e.target.style.backgroundColor = `hsl(${random(360)}, 100%, ${random(100)}%)`;
-        } else if (writing && erase) {
-            e.target.style.backgroundColor = 'white';
-        } else if (writing) {
-            e.target.style.backgroundColor = `${newColor}`;
+canvas.addEventListener('mousedown', () => {
+    let write = true;
+    canvas.addEventListener('mouseover', (e) => {
+        if (write) {
+            e.target.style.backgroundColor = `${color.value}`;
         }
-    }));
-})
+    })
 
+    canvas.addEventListener('mouseup', () => {
+        write = false;
+    }) 
+})
 
 function enableEffect(event) {
     let effect = event.currentTarget.attributes.effect.value;
@@ -108,10 +86,6 @@ function enableEffect(event) {
         btn_Erase.classList.remove("toggle")
     }
 }
-
-canvas.addEventListener('mouseup', () => {
-    writing = false;
-})
 
 btn_Grid.addEventListener('click', () => {
     const tiles = document.querySelectorAll('.tile');
