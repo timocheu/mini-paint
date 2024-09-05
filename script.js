@@ -51,11 +51,37 @@ function createTile() {
     }
 }
 
+
 canvas.addEventListener('mousedown', () => {
     let write = true;
+
+    // Rainbow
+    let rainbow;
+    let rainbowHueCounter = 0;
+    
+    // Erase
+    let erase;
+
+    if (btn_Erase.classList.contains('toggle')) {
+        erase = true;
+    }
+
+    if (btn_Rainbow.classList.contains('toggle')) {
+        rainbow = true;
+    }
+
     canvas.addEventListener('mouseover', (e) => {
         if (write) {
-            e.target.style.backgroundColor = `${color.value}`;
+            if (rainbow) {
+                e.target.style.backgroundColor = `hsl(${rainbowHueCounter}, 100%, 40%)`;
+                // rate of change of rainbow
+                rainbowHueCounter += 8;
+            } else if (erase) {
+                e.target.style.backgroundColor = "";
+            } else {
+                e.target.style.backgroundColor = `${color.value}`;
+            }
+
         }
     })
 
