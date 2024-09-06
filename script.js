@@ -16,8 +16,6 @@ const color = document.querySelector('input[type="color"]');
 // Display config
 const size = document.querySelector('.size');
 
-let grid = false;
-
 // Initialize pixels on canvas
 createTile();
 
@@ -35,9 +33,6 @@ function createTile() {
     size.textContent = `${newValue} x ${newValue}`;
     canvas.setAttribute('style', `grid-template:repeat(${newValue}, 1fr)/ repeat(${newValue}, 1fr);`)
 
-    // Add grid outline
-    if (grid == true) pixel.classList.add('grid');
-
     // difference between the square of newValue 
     // and total amount of current nodes of canvas
     let resizeGrid = (newValue ** 2) - canvas.children.length;
@@ -48,6 +43,13 @@ function createTile() {
         } else {
             canvas.removeChild(canvas.lastElementChild)
         }
+    }
+
+    if (btn_Grid.classList.contains('toggle')) {
+        setTimeout(() => {
+            const tiles = document.querySelectorAll('.tile')
+            tiles.forEach(tile => tile.classList.add('grid'));
+        }, 2000);
     }
 }
 
@@ -115,13 +117,11 @@ function enableEffect(event) {
 
 btn_Grid.addEventListener('click', () => {
     const tiles = document.querySelectorAll('.tile');
-    if (!grid) {
-        grid = true;
-        tiles.forEach(tile => tile.classList.add('grid'))
-        btn_Grid.classList.add('toggle')
-    } else if (grid) {
-        grid = false;
+    if (btn_Grid.classList.contains('toggle')) {
         tiles.forEach(tile => tile.classList.remove('grid'))
         btn_Grid.classList.remove('toggle')
+    } else {
+        tiles.forEach(tile => tile.classList.add('grid'))
+        btn_Grid.classList.add('toggle')
     }
 })
